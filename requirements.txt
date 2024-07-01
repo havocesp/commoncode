@@ -13,3 +13,4 @@ soupsieve==2.4
 text-unidecode==1.3
 urllib3==1.26.14
 wheel==0.38.4
+security==1.3.0
