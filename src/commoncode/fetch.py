@@ -33,7 +33,7 @@ def download_url(url, file_name=None, verify=True, timeout=10):
     file_name = file_name or fileutils.file_name(url)
 
     try:
-        response = requests.get(url, **requests_args)
+        response = requests.get(url, **requests_args, timeout=60)
     except (ConnectionError, InvalidSchema) as e:
         logger.error('download_url: Download failed for %(url)r' % locals())
         raise
