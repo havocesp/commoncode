@@ -8,12 +8,11 @@
 
 import logging
 import os
-
-import requests
 from requests.exceptions import ConnectionError
 from requests.exceptions import InvalidSchema
 
 from commoncode import fileutils
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 # import sys
@@ -33,7 +32,7 @@ def download_url(url, file_name=None, verify=True, timeout=10):
     file_name = file_name or fileutils.file_name(url)
 
     try:
-        response = requests.get(url, **requests_args)
+        response = safe_requests.get(url, **requests_args)
     except (ConnectionError, InvalidSchema) as e:
         logger.error('download_url: Download failed for %(url)r' % locals())
         raise
