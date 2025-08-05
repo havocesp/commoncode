@@ -20,6 +20,7 @@ from commoncode.fileutils import get_temp_dir
 from commoncode.system import on_posix
 from commoncode.system import on_windows
 from commoncode import text
+from security import safe_command
 
 """
 Wrapper for executing external commands in sub-processes which works
@@ -90,8 +91,7 @@ def execute(cmd_loc, args, cwd=None, env=None, to_files=False, log=TRACE):
 
     try:
         with io.open(sop, 'wb') as stdout, io.open(sep, 'wb') as stderr, pushd(cmd_dir):
-            proc = subprocess.Popen(
-                full_cmd,
+            proc = safe_command.run(subprocess.Popen, full_cmd,
                 cwd=cwd,
                 env=env,
                 stdout=stdout,
